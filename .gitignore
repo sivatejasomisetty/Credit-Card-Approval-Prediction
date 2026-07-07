@@ -1,4 +1,63 @@
-venv/
+# ==========================
+# Python
+# ==========================
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+.venv/
+env/
+ENV/
+
+# Environment Variables
 .env
+.env.*
+
+# Flask
+instance/
+.flaskenv
+
+# Python packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# IDEs
+.vscode/
+.idea/
+
+# Operating System
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Pytest
+.pytest_cache/
+
+# Coverage
+.coverage
+htmlcov/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+
+# Model cache (optional)
+.cache/
+
+# ==========================
+# Ignore generated model files (optional)
+# Uncomment ONLY if your models can be regenerated
+# ==========================
+# *.joblib
+# *.pkl
