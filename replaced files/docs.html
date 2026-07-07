@@ -1,0 +1,263 @@
+{% extends "base.html" %}
+
+{% block title %}System Documentation | Credit Card Approval{% endblock %}
+
+{% block extra_css %}
+        /* Docs Image gallery styles */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+            }
+            .gallery-card {
+                padding: 1.25rem;
+            }
+            .gallery-img-container {
+                min-height: 200px;
+            }
+        }
+
+        .gallery-card {
+            background-color: var(--surface-1);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .gallery-img-container {
+            width: 100%;
+            border-radius: 8px;
+            background-color: var(--canvas-subdued);
+            border: 1px solid var(--border-subtle);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 250px;
+        }
+
+        .gallery-img-container img {
+            max-width: 100%;
+            max-height: 400px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .gallery-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--ink);
+        }
+
+        .gallery-desc {
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+{% endblock %}
+
+{% block content %}
+            <div class="section-header">
+                <h2>System Documentation & Technical Specifications</h2>
+                <p>Comprehensive overview of the datasets, data pre-processing logic, weak supervision rules, and data visualization findings.</p>
+            </div>
+
+            <!-- Bento Card 1: Project Overview -->
+            <div class="card" style="margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 0.75rem; color: var(--primary);">1. Executive Overview</h3>
+                <p style="color: var(--ink-muted); font-size: 0.95rem; margin-bottom: 1rem;">
+                    Banks receive millions of credit card applications monthly. Due to the high risk of defaults, manual verification is slow and prone to errors. This system automates the screening process using a machine learning model trained on historical demographic profiles and monthly account repayment behaviors.
+                </p>
+            </div>
+
+            <!-- Bento Card 2: Data Dictionary -->
+            <div class="card" style="margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1rem; color: var(--primary);">2. Dataset Schema & Data Dictionary</h3>
+                <p style="color: var(--ink-muted); font-size: 0.95rem; margin-bottom: 1rem;">
+                    The model utilizes two main inputs merged by a unique key (<code>ID</code>):
+                </p>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>File Source</th>
+                                <th>Feature Name</th>
+                                <th>Data Type</th>
+                                <th>Description / Value Range</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Application Profile</td>
+                                <td><code>CODE_GENDER</code></td>
+                                <td>Categorical</td>
+                                <td>Gender of the applicant (M = Male, F = Female)</td>
+                            </tr>
+                            <tr>
+                                <td>Application Profile</td>
+                                <td><code>AMT_INCOME_TOTAL</code></td>
+                                <td>Numerical</td>
+                                <td>Total annual income of the applicant</td>
+                            </tr>
+                            <tr>
+                                <td>Application Profile</td>
+                                <td><code>DAYS_EMPLOYED</code></td>
+                                <td>Numerical</td>
+                                <td>Employment length in days (Negative values; 365243 = Unemployed)</td>
+                            </tr>
+                            <tr>
+                                <td>Application Profile</td>
+                                <td><code>DAYS_BIRTH</code></td>
+                                <td>Numerical</td>
+                                <td>Age in days (Negative values)</td>
+                            </tr>
+                            <tr>
+                                <td>Application Profile</td>
+                                <td><code>OCCUPATION_TYPE</code></td>
+                                <td>Categorical</td>
+                                <td>Job role category (e.g. Managers, Laborers, Unknown)</td>
+                            </tr>
+                            <tr>
+                                <td>Credit Ledger</td>
+                                <td><code>STATUS</code></td>
+                                <td>Categorical</td>
+                                <td>Monthly repayment status (X=No loan, C=Closed, 0=On-time, 1-5=Months Late)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Bento Card 3: Preprocessing Logic -->
+            <div class="card" style="margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1rem; color: var(--primary);">3. Feature Engineering & Preprocessing Pipeline</h3>
+                <ul style="color: var(--ink-muted); font-size: 0.95rem; padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem;">
+                    <li>
+                        <strong>Missing Value Imputation:</strong> The <code>OCCUPATION_TYPE</code> column contains <strong>30.6% missing values</strong> (NaN). We map this missingness to a custom string category <code>"Unknown"</code> to keep the record without losing other valuable profile metrics.
+                    </li>
+                    <li>
+                        <strong>Employment Translation:</strong> Raw employment is stored in days. We calculate <code>YEARS_EMPLOYED</code> by dividing by 365 and bounding it to &ge; 0. For unemployed entries (identified by code <code>365243</code>), we set the value to 0.
+                    </li>
+                    <li>
+                        <strong>Credit History Aggregation:</strong> Transaction history contains multiple monthly logs per client. We group them by <code>ID</code> to engineer fixed-size metrics:
+                        <ul style="padding-left: 1.5rem; margin-top: 0.4rem; list-style-type: circle;">
+                            <li><code>STATUS_MAX</code>: Worst credit status observed (highest delay code).</li>
+                            <li><code>STATUS_MEAN</code>: Average numerical credit delay code.</li>
+                            <li><code>STATUS_TREND</code>: Direction of monthly payment behaviors (improving or declining).</li>
+                            <li><code>NUM_LATE_MONTHS</code>: Number of months where payment was delayed.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Bento Card 4: Weak Supervision Heuristics -->
+            <div class="card" style="margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1rem; color: var(--primary);">4. Label Generation Heuristics (Target)</h3>
+                <p style="color: var(--ink-muted); font-size: 0.95rem; margin-bottom: 1rem;">
+                    Since real-world credit ledger datasets are unlabeled (lacking a clean approved/denied verdict column), a <strong>Weak Supervision Heuristic Rule</strong> was defined to generate targets ($y$):
+                </p>
+                <div style="background-color: var(--canvas-subdued); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; font-size: 0.95rem; color: var(--ink-muted);">
+                    An applicant receives <strong>1 point</strong> for each of the following rules they meet:
+                    <ul style="padding-left: 1.5rem; margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.4rem;">
+                        <li><strong>Income Check:</strong> Annual income is &ge; $120,000</li>
+                        <li><strong>Employment Check:</strong> Employment tenure is &ge; 2 years</li>
+                        <li><strong>Credit History Check:</strong> Payment status metrics indicate clean repayment history (no delays and &le; 1 late month total)</li>
+                        <li><strong>Family Size Check:</strong> &le; 2 children and &le; 4 total family members</li>
+                    </ul>
+                    <p style="margin-top: 0.75rem; font-weight: 600; color: var(--ink);">
+                        Verdict Label = Approved (1) if they score &ge; 3 points; else Denied (0).
+                    </p>
+                </div>
+            </div>
+
+            <!-- Section Header: Gallery -->
+            <div class="section-header">
+                <h2>Exploratory Data Analysis Gallery</h2>
+                <p>Curated charts extracted from the Jupyter EDA Notebook representing demographic and transactional variables.</p>
+            </div>
+
+            <div class="gallery-grid">
+                <!-- Chart 1 -->
+                <div class="gallery-card">
+                    <div class="gallery-title">1. Delinquency Months Distribution</div>
+                    <div class="gallery-img-container">
+                        <img src="/static/assets/chart_1.png" alt="Delinquency Status Chart">
+                    </div>
+                    <div class="gallery-desc">Shows that the vast majority of historical credit records are clean (delinquency index around 0), but some clients exhibit high values representing risky late behaviors.</div>
+                </div>
+
+                <!-- Chart 2 -->
+                <div class="gallery-card">
+                    <div class="gallery-title">2. Payment Delay Status Counts</div>
+                    <div class="gallery-img-container">
+                        <img src="/static/assets/chart_2.png" alt="Delay status chart">
+                    </div>
+                    <div class="gallery-desc">Logs monthly account status categories. The high volume of 'C' (Closed) and '0' (On-Time) shows that most records contain resolved credit behavior.</div>
+                </div>
+
+                <!-- Chart 3 -->
+                <div class="gallery-card">
+                    <div class="gallery-title">3. Target Labels Proportion</div>
+                    <div class="gallery-img-container">
+                        <img src="/static/assets/chart_3.png" alt="Target proportion">
+                    </div>
+                    <div class="gallery-desc">Illustrates the final generated approval distribution. About 88.6% of historical profiles meet the banking criteria (Approved), while 11.3% are flagged as high risk (Denied).</div>
+                </div>
+
+                <!-- Chart 4 -->
+                <div class="gallery-card">
+                    <div class="gallery-title">4. Income Type Distribution</div>
+                    <div class="gallery-img-container">
+                        <img src="/static/assets/chart_4.png" alt="Income type distribution">
+                    </div>
+                    <div class="gallery-desc">Demonstrates that the majority of applicants are 'Working' class or 'Commercial Associates'. Pensioners and state servants make up a smaller subset.</div>
+                </div>
+
+                <!-- Chart 5 -->
+                <div class="gallery-card">
+                    <div class="gallery-title">5. Gender Demographics</div>
+                    <div class="gallery-img-container">
+                        <img src="/static/assets/chart_5.png" alt="Gender distribution">
+                    </div>
+                    <div class="gallery-desc">Bar chart showing the gender proportions of applicants, highlighting the demographic balance in the historical banking application records.</div>
+                </div>
+
+                <!-- Chart 6 -->
+                <div class="gallery-card">
+                    <div class="gallery-title">6. Education Level Breakdown</div>
+                    <div class="gallery-img-container">
+                        <img src="/static/assets/chart_6.png" alt="Education level breakdown">
+                    </div>
+                    <div class="gallery-desc">Tracks completed education levels. Shows that secondary education is the most prevalent, followed closely by university degrees.</div>
+                </div>
+
+                <!-- Chart 7 -->
+                <div class="gallery-card">
+                    <div class="gallery-title">7. Marital Family Status</div>
+                    <div class="gallery-img-container">
+                        <img src="/static/assets/chart_7.png" alt="Marital Family Status">
+                    </div>
+                    <div class="gallery-desc">Shows marital demographics among applicants, with the majority being married, followed by single and civil partnerships.</div>
+                </div>
+
+                <!-- Chart 8 -->
+                <div class="gallery-card">
+                    <div class="gallery-title">8. Housing Property Situation</div>
+                    <div class="gallery-img-container">
+                        <img src="/static/assets/chart_8.png" alt="Housing Property Situation">
+                    </div>
+                    <div class="gallery-desc">Highlights housing situations, showing that owned houses or apartments dominate the demographic profiles compared to rented setups.</div>
+                </div>
+            </div>
+{% endblock %}

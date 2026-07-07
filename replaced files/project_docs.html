@@ -1,0 +1,559 @@
+{% extends "base.html" %}
+
+{% block title %}Project Portal - Credit Card Approval System{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+/* Custom styling for the premium Project Portal */
+:root {
+    --sidebar-width: 280px;
+    --card-bg: #FFFFFF;
+    --text-primary: #1F1F1F;
+    --text-secondary: #5C5C5C;
+    --glow-color: rgba(0, 86, 210, 0.08);
+}
+
+.portal-container {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    min-height: calc(100vh - 200px);
+    position: relative;
+}
+
+/* Sidebar Styling */
+.portal-sidebar {
+    width: var(--sidebar-width);
+    flex-shrink: 0;
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    height: fit-content;
+    position: sticky;
+    top: 90px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.sidebar-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.folder-group {
+    margin-bottom: 1.5rem;
+}
+
+.folder-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--ink-muted);
+    margin-bottom: 0.5rem;
+    padding-left: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.folder-files {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.file-link {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: var(--transition);
+    border-left: 3px solid transparent;
+}
+
+.file-link:hover {
+    color: var(--primary);
+    background-color: var(--canvas-subdued);
+    border-left-color: var(--border);
+}
+
+.file-link.active {
+    color: var(--primary);
+    background-color: var(--glow-color);
+    border-left-color: var(--primary);
+    font-weight: 600;
+}
+
+/* Document Viewer Area */
+.portal-viewer {
+    flex-grow: 1;
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 3rem;
+    box-shadow: var(--shadow-md);
+    min-width: 0;
+    transition: var(--transition);
+}
+
+.viewer-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.viewer-breadcrumbs {
+    font-size: 0.85rem;
+    color: var(--ink-subdued);
+    margin-bottom: 0.5rem;
+}
+
+.viewer-breadcrumbs span {
+    margin: 0 0.5rem;
+}
+
+.viewer-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.5px;
+}
+
+/* Copy Button Styling */
+.btn-copy-doc {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: var(--ink-muted);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.btn-copy-doc:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+    background-color: var(--surface-2);
+}
+
+.btn-copy-doc.copied {
+    color: var(--grade-pass);
+    border-color: var(--grade-pass);
+    background-color: rgba(31, 161, 95, 0.05);
+}
+
+/* Hamburger Toggle Button (mobile only) */
+.mobile-sidebar-toggle {
+    display: none;
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    width: 2.5rem;
+    height: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.mobile-sidebar-toggle:hover {
+    background-color: var(--surface-2);
+}
+
+/* Markdown Render Styling */
+.markdown-body {
+    font-size: 1.05rem;
+    color: var(--ink);
+    line-height: 1.7;
+}
+
+.markdown-body h1 {
+    display: none;
+}
+
+.markdown-body h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 0.25rem;
+    color: var(--ink);
+}
+
+.markdown-body h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--ink);
+}
+
+.markdown-body p {
+    margin-bottom: 1.25rem;
+}
+
+.markdown-body ul, .markdown-body ol {
+    margin-bottom: 1.25rem;
+    padding-left: 1.5rem;
+}
+
+.markdown-body li {
+    margin-bottom: 0.5rem;
+}
+
+.markdown-body pre {
+    background-color: var(--canvas-subdued);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+    font-family: 'Consolas', 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+}
+
+.markdown-body code {
+    background-color: var(--surface-2);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+}
+
+.markdown-body pre code {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+}
+
+.markdown-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+}
+
+.markdown-body th, .markdown-body td {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+}
+
+.markdown-body th {
+    background-color: var(--canvas-subdued);
+    font-weight: 600;
+}
+
+.markdown-body blockquote {
+    border-left: 4px solid var(--primary);
+    padding-left: 1.25rem;
+    margin-bottom: 1.5rem;
+    color: var(--ink-muted);
+    font-style: italic;
+    background-color: var(--canvas-subdued);
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-radius: 0 8px 8px 0;
+}
+
+/* Loading & Empty state animations */
+.portal-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 0;
+    color: var(--ink-subdued);
+}
+
+.portal-spinner {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 3px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Responsiveness adjustments */
+@media (max-width: 992px) {
+    .portal-container {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .mobile-sidebar-toggle {
+        display: inline-flex;
+    }
+    
+    .portal-sidebar {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 300px;
+        height: 100vh;
+        max-height: 100vh;
+        z-index: 150;
+        border-radius: 0;
+        box-shadow: var(--shadow-lg);
+        opacity: 0;
+    }
+    
+    .portal-sidebar.open {
+        left: 0;
+        opacity: 1;
+    }
+    
+    .portal-viewer {
+        padding: 2rem;
+    }
+}
+{% endblock %}
+
+{% block content %}
+<div class="portal-container">
+    <!-- Left Navigation Sidebar -->
+    <aside class="portal-sidebar" id="sidebar">
+        <h3 class="sidebar-title">
+            Project Portal
+        </h3>
+        <div id="sidebar-content">
+            <div class="portal-loading">
+                <div class="portal-spinner"></div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Right Content Viewer -->
+    <section class="portal-viewer">
+        <div class="viewer-header">
+            <div>
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+                    <button class="mobile-sidebar-toggle" id="sidebar-toggle" aria-label="Toggle Navigation Menu">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </button>
+                    <div class="viewer-breadcrumbs" id="breadcrumbs" style="margin-bottom: 0;">
+                        Project Portal <span>/</span> Loading...
+                    </div>
+                </div>
+                <h2 class="viewer-title" id="document-title">Select a Document</h2>
+            </div>
+            
+            <button class="btn-copy-doc" id="copy-document-btn" aria-label="Copy Document Content" style="display: none;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                <span>Copy</span>
+            </button>
+        </div>
+        
+        <div class="markdown-body" id="document-content">
+            <p style="color: var(--ink-muted);">Please select a document from the sidebar to review the specification data.</p>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Include marked.js for fast client-side markdown parsing -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<!-- Include KaTeX for dynamic math formula rendering -->
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const sidebarContent = document.getElementById('sidebar-content');
+    const docTitle = document.getElementById('document-title');
+    const docContent = document.getElementById('document-content');
+    const breadcrumbs = document.getElementById('breadcrumbs');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const copyBtn = document.getElementById('copy-document-btn');
+    
+    let docsData = [];
+    let currentMarkdownText = '';
+    
+    // Toggle Mobile Sidebar
+    sidebarToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('open');
+    });
+
+    // Close Mobile Sidebar when clicking outside
+    document.addEventListener('click', function(e) {
+        if (window.innerWidth <= 992) {
+            if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+                sidebar.classList.remove('open');
+            }
+        }
+    });
+
+    // Copy document content logic
+    copyBtn.addEventListener('click', function() {
+        if (!currentMarkdownText) return;
+        
+        navigator.clipboard.writeText(currentMarkdownText)
+            .then(() => {
+                copyBtn.classList.add('copied');
+                copyBtn.querySelector('span').textContent = 'Copied!';
+                
+                setTimeout(() => {
+                    copyBtn.classList.remove('copied');
+                    copyBtn.querySelector('span').textContent = 'Copy';
+                }, 2000);
+            })
+            .catch(err => {
+                console.error("Could not copy text: ", err);
+            });
+    });
+
+    // Fetch the list of documents dynamically
+    fetch('/api/project-docs/list')
+        .then(response => response.json())
+        .then(data => {
+            docsData = data.folders || [];
+            renderSidebar();
+            
+            // Auto-load the first document on startup
+            if (docsData.length > 0 && docsData[0].files.length > 0) {
+                const firstFile = docsData[0].files[0];
+                loadDocument(firstFile.relative_path, docsData[0].name, firstFile.name);
+            }
+        })
+        .catch(err => {
+            console.error("Error loading document list:", err);
+            sidebarContent.innerHTML = '<p class="error">Failed to load documentation catalog.</p>';
+        });
+
+    function renderSidebar() {
+        if (docsData.length === 0) {
+            sidebarContent.innerHTML = '<p>No documents found.</p>';
+            return;
+        }
+        
+        let html = '';
+        docsData.forEach(folder => {
+            html += `<div class="folder-group">`;
+            html += `<div class="folder-name">${folder.name}</div>`;
+            html += `<ul class="folder-files">`;
+            folder.files.forEach(file => {
+                html += `
+                    <li>
+                        <a href="#" class="file-link" 
+                           data-path="${file.relative_path}" 
+                           data-folder="${folder.name}" 
+                           data-name="${file.name}">
+                           ${file.name}
+                        </a>
+                    </li>
+                `;
+            });
+            html += `</ul>`;
+            html += `</div>`;
+        });
+        
+        sidebarContent.innerHTML = html;
+
+        // Register click listeners
+        const fileLinks = document.querySelectorAll('.file-link');
+        fileLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Set active states
+                fileLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                const path = this.dataset.path;
+                const folder = this.dataset.folder;
+                const name = this.dataset.name;
+                
+                loadDocument(path, folder, name);
+                
+                // Close sidebar on mobile
+                if (window.innerWidth <= 992) {
+                    sidebar.classList.remove('open');
+                }
+            });
+        });
+    }
+
+    function loadDocument(path, folderName, fileName) {
+        // Display loading spinner
+        docContent.innerHTML = `
+            <div class="portal-loading">
+                <div class="portal-spinner"></div>
+                <p>Loading document content...</p>
+            </div>
+        `;
+        docTitle.textContent = fileName;
+        breadcrumbs.innerHTML = `Project Portal <span>/</span> ${folderName} <span>/</span> ${fileName}`;
+        copyBtn.style.display = 'none';
+
+        // Fetch raw markdown text
+        fetch(`/api/project-docs/file?path=${encodeURIComponent(path)}`)
+            .then(response => {
+                if (!response.ok) throw new Error("Could not load document");
+                return response.text();
+            })
+            .then(markdownText => {
+                currentMarkdownText = markdownText;
+                
+                // Parse markdown to HTML using marked.js
+                docContent.innerHTML = marked.parse(markdownText);
+                copyBtn.style.display = 'inline-flex';
+                
+                // Auto-render LaTeX formulas using KaTeX
+                renderMathInElement(docContent, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError : false
+                });
+                
+                // Update active link state in case loaded automatically
+                const activeLink = document.querySelector(`.file-link[data-path="${path}"]`);
+                if (activeLink) {
+                    document.querySelectorAll('.file-link').forEach(l => l.classList.remove('active'));
+                    activeLink.classList.add('active');
+                }
+            })
+            .catch(err => {
+                console.error("Error reading file:", err);
+                docContent.innerHTML = `
+                    <p class="error" style="color: var(--grade-fail); font-weight: 600;">
+                        Error: Failed to fetch the requested document content.
+                    </p>
+                `;
+            });
+    }
+});
+</script>
+{% endblock %}
