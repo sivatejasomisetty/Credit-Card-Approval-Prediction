@@ -1,0 +1,444 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | Credit Card Approval{% endblock %}
+
+{% block extra_css %}
+        /* Hero Section Styling */
+        .hero-section {
+            background: url('/static/assets/image_landscape.png') no-repeat center center / cover;
+            border-radius: 20px;
+            padding: 4rem 3rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .hero-glass-card {
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(20px) saturate(190%);
+            -webkit-backdrop-filter: blur(20px) saturate(190%);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 16px;
+            padding: 3.5rem 3rem;
+            max-width: 780px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.04);
+        }
+
+        .hero-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .hero-subtitle {
+            color: var(--ink-muted);
+            font-size: 1.15rem;
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+            line-height: 1.55;
+        }
+
+        .cta-container {
+            display: flex;
+            justify-content: center;
+            gap: 1.25rem;
+        }
+
+        .btn-cta-primary {
+            background-color: var(--primary);
+            color: var(--on-primary);
+            border: none;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1.05rem;
+            font-weight: 600;
+            padding: 0.9rem 2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 14px rgba(0, 86, 210, 0.2);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-cta-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 86, 210, 0.3);
+        }
+
+        .btn-cta-secondary {
+            background-color: var(--surface-1);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1.05rem;
+            font-weight: 600;
+            padding: 0.9rem 2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-cta-secondary:hover {
+            background-color: rgba(0, 86, 210, 0.04);
+            transform: translateY(-2px);
+        }
+
+        /* Premium Bento Grid Layout */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: minmax(180px, auto);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (max-width: 900px) {
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-auto-rows: minmax(130px, auto);
+                gap: 0.75rem;
+            }
+            .bento-card {
+                padding: 1.25rem;
+            }
+            .bento-large-value {
+                font-size: 2rem;
+            }
+            /* First card spans full row */
+            .bento-grid > .bento-card:nth-child(1) {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+            /* Second and Third cards sit side-by-side */
+            .bento-grid > .bento-card:nth-child(2),
+            .bento-grid > .bento-card:nth-child(3) {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+            /* Fourth card spans full row */
+            .bento-grid > .bento-card:nth-child(4) {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+            /* Fifth card spans full row */
+            .bento-grid > .bento-card:nth-child(5) {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+        }
+
+        .bento-card {
+            background-color: var(--surface-1);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2.25rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .span-2 {
+            grid-column: span 2;
+        }
+        .row-2 {
+            grid-row: span 2;
+        }
+
+        @media (max-width: 900px) {
+            .span-2 {
+                grid-column: span 2;
+            }
+        }
+
+        .bento-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .bento-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .bento-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 8px;
+            background-color: var(--surface-2);
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .bento-card:hover .bento-icon {
+            background-color: var(--primary);
+            color: var(--on-primary);
+            transition: var(--transition);
+        }
+
+        .bento-body {
+            flex-grow: 1;
+        }
+
+        .bento-desc {
+            color: var(--ink-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .bento-large-value {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+            letter-spacing: -1px;
+            margin-top: auto;
+        }
+
+        .bento-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            background-color: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--ink-muted);
+            margin-top: 1rem;
+        }
+
+        /* Mobile layout overrides for Hero section */
+        @media (max-width: 600px) {
+            .hero-section {
+                padding: 2rem 1.25rem;
+                margin-bottom: 1.5rem;
+            }
+            .hero-glass-card {
+                padding: 2.25rem 1.5rem;
+            }
+            .hero-title {
+                font-size: 1.95rem;
+                letter-spacing: -0.5px;
+            }
+            .hero-subtitle {
+                font-size: 0.95rem;
+                margin-bottom: 1.75rem;
+            }
+            .cta-container {
+                flex-direction: column;
+                gap: 0.75rem;
+                align-items: stretch;
+            }
+            .btn-cta-primary, .btn-cta-secondary {
+                width: 100%;
+                text-align: center;
+                padding: 0.75rem 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+{% endblock %}
+
+{% block content %}
+            <div class="hero-section">
+                <div class="hero-glass-card">
+                    <h1 class="hero-title">Credit Card Approval Predictor</h1>
+                    <p class="hero-subtitle">An intelligent machine learning system using real-world transaction indicators to evaluate risk profiles and automate lending approvals.</p>
+                    <div class="cta-container">
+                        <a href="/predictor" class="btn-cta-primary">Check Your Eligibility Now</a>
+                        <!-- <a href="/docs" class="btn-cta-secondary">View Data Insights</a> -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bento Grid -->
+            <!-- <div class="bento-grid"> -->
+                
+                <!-- Card 1: Core ML Model Strategy (Large) -->
+                <!-- <div class="bento-card span-2 row-2">
+                    <div class="bento-header">
+                        <div class="bento-title">
+                            <div class="bento-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+                            </div>
+                            <span>Deployment Strategy</span>
+                        </div>
+                        <span class="bento-pill">Random Forest</span>
+                    </div>
+                    <div class="bento-body">
+                        <p class="bento-desc">Evaluated using 4 different classifiers (Logistic Regression, Decision Trees, Random Forests, XGBoost). The Random Forest model achieved perfect mapping of the risk policy metrics on validation test sets, minimizing potential bank credit defaults.</p>
+                    </div>
+                    <div class="bento-large-value">RF 100%</div>
+                </div> -->
+
+                <!-- Card 2: Dataset Statistics (Small) -->
+                <!-- <div class="bento-card">
+                    <div class="bento-header">
+                        <div class="bento-title">
+                            <div class="bento-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/></svg>
+                            </div>
+                            <span>Training Dataset</span>
+                        </div>
+                    </div>
+                    <div class="bento-body">
+                        <p class="bento-desc">Consolidated historical profiles and payment records.</p>
+                    </div>
+                    <div style="font-size: 1.8rem; font-weight: 700; color: var(--primary);">438K+ Records</div>
+                </div> -->
+
+                <!-- Card 3: Team Contribution (Small) -->
+                <!-- <div class="bento-card">
+                    <div class="bento-header">
+                        <div class="bento-title">
+                            <div class="bento-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            </div>
+                            <span>Collaborators</span>
+                        </div>
+                    </div>
+                    <div class="bento-body">
+                        <ul style="list-style: none; color: var(--ink-muted); font-size: 0.9rem; display: flex; flex-direction: column; gap: 0.25rem;">
+                            <li>• Sivateja Somisetty</li>
+                            <li>• Ayub Hussain Shaik</li>
+                            <li>• Saniya Syed</li>
+                            <li>• Dedeepya Urlagaddala</li>
+                            <li>• Divya Bharathi Gillella</li>
+                        </ul>
+                    </div>
+                    <div style="font-size: 1.4rem; font-weight: 700; color: var(--primary); margin-top: 1rem;">5 Members</div>
+                </div> -->
+
+                <!-- Card 4: Heuristics Risk Policy Formula (Large) -->
+                <!-- <div class="bento-card span-2">
+                    <div class="bento-header">
+                        <div class="bento-title">
+                            <div class="bento-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            </div>
+                            <span>Approval Heuristics Formula</span>
+                        </div>
+                        <span class="bento-pill">Multi-Rule Heuristics</span>
+                    </div>
+                    <div class="bento-body">
+                        <p class="bento-desc" style="margin-bottom: 0;">Automated labels check multiple target parameters: continuous employment for over 2 years, total annual income starting at $120,000, zero historical credit delinquency events, and household dependencies balance.</p>
+                    </div>
+                </div> -->
+
+                <!-- Card 5: Fast Automation Check (Small) -->
+                <!-- <div class="bento-card">
+                    <div class="bento-header">
+                        <div class="bento-title">
+                            <div class="bento-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                            </div>
+                            <span>Risk Clearance</span>
+                        </div>
+                    </div>
+                    <div class="bento-body">
+                        <p class="bento-desc">Real-time decisions optimized for credit officers.</p>
+                    </div>
+                    <div style="font-size: 1.8rem; font-weight: 700; color: var(--primary);">&lt; 100ms Latency</div>
+                </div>
+
+            </div> -->
+
+            <!-- Model Comparison & Selection Analysis
+            <div class="section-header">
+                <h2>Model Performance & Evaluation Analysis</h2>
+                <p>Detailed performance benchmarks of the machine learning classifiers on risk policy data.</p>
+            </div>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Model Classifier</th>
+                            <th>Accuracy</th>
+                            <th>Precision</th>
+                            <th>Recall</th>
+                            <th>F1-Score</th>
+                            <th>ROC-AUC</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Random Forest Classifier</strong></td>
+                            <td><span class="badge badge-approved">100.00%</span></td>
+                            <td>100.00%</td>
+                            <td>100.00%</td>
+                            <td>100.00%</td>
+                            <td>1.0000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Decision Tree Classifier</strong></td>
+                            <td><span class="badge badge-approved">100.00%</span></td>
+                            <td>100.00%</td>
+                            <td>100.00%</td>
+                            <td>100.00%</td>
+                            <td>1.0000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>XGBoost Classifier</strong></td>
+                            <td><strong>99.99%</strong></td>
+                            <td>100.00%</td>
+                            <td>99.99%</td>
+                            <td>99.99%</td>
+                            <td>1.0000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Logistic Regression</strong></td>
+                            <td>84.09%</td>
+                            <td>98.62%</td>
+                            <td>83.22%</td>
+                            <td>90.27%</td>
+                            <td>0.9490</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div> -->
+
+            <!-- <div class="card" style="margin-top: 1.5rem;">
+                <h3 style="margin-bottom: 1rem; color: var(--ink);">Why did Tree-based Models score 100%?</h3>
+                <p style="color: var(--ink-muted); font-size: 0.95rem; margin-bottom: 1rem;">
+                    Because the credit-card approval target labels were synthesized using a deterministic rule-based heuristic (e.g., checking if annual income is &ge; $120,000 AND years employed &ge; 2, etc.), tree-based classifiers (Decision Trees & Random Forests) were able to split the features exactly at those thresholds and reconstruct the mathematical logic perfectly on validation test sets. 
+                </p>
+                <p style="color: var(--ink-muted); font-size: 0.95rem;">
+                    <strong>Why did we select Random Forest?</strong> While a single Decision Tree can model these rules, it has high variance and is extremely prone to overfitting if new, noisy data is introduced. A <strong>Random Forest Classifier</strong> averages the decisions of 100 trees, reducing variance and ensuring a highly stable and robust model for credit operations.
+                </p>
+            </div> -->
+{% endblock %}

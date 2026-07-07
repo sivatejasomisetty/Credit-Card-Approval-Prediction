@@ -1,0 +1,29 @@
+{
+  "candidate": "Pensioner with no car",
+  "applicant_id": 20004,
+  "prediction": "Denied",
+  "probability": 0.0027,
+  "reason": "Mixed profile with notable risk signals; review recommended.",
+  "input_data": {
+    "ID": 20004,
+    "CODE_GENDER": "M",
+    "FLAG_OWN_CAR": "N",
+    "FLAG_OWN_REALTY": "Y",
+    "CNT_CHILDREN": 0,
+    "AMT_INCOME_TOTAL": 110000,
+    "NAME_INCOME_TYPE": "Pension",
+    "NAME_EDUCATION_TYPE": "Higher education",
+    "NAME_FAMILY_STATUS": "Single / not married",
+    "NAME_HOUSING_TYPE": "House / apartment",
+    "DAYS_BIRTH": -50000,
+    "DAYS_EMPLOYED": -9000,
+    "FLAG_MOBIL": 1,
+    "FLAG_WORK_PHONE": 0,
+    "FLAG_PHONE": 1,
+    "FLAG_EMAIL": 0,
+    "OCCUPATION_TYPE": "Medicine staff",
+    "CNT_FAM_MEMBERS": 1,
+    "DAYS_REGISTRATION": -2200,
+    "DAYS_ID_PUBLISH": -800
+  }
+}

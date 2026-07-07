@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-06-27T15:54:41.564804",
+  "applicant_id": "5858209",
+  "prediction": "Approved",
+  "probability": 0.928,
+  "reason": "Strong annual income ($209,000.00) satisfies standard banking capital buffers. | Stable career tenure (11.5 years) exhibits solid professional stability. | Acceptable dependency index (0 children, 1 family members).",
+  "input_data": {
+    "AMT_INCOME_TOTAL": 209000,
+    "NAME_INCOME_TYPE": "State servant",
+    "NAME_EDUCATION_TYPE": "Lower secondary"
+  }
+}

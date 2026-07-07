@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-06-27T15:39:59.510703",
+  "applicant_id": "5008030",
+  "prediction": "Approved",
+  "probability": 0.9201,
+  "reason": "Strong financial profile and low-risk credit history indicators.",
+  "input_data": {
+    "AMT_INCOME_TOTAL": 270000,
+    "NAME_INCOME_TYPE": "Pensioner",
+    "NAME_EDUCATION_TYPE": "Secondary / secondary special"
+  }
+}

@@ -1,0 +1,205 @@
+{
+  "count": 10,
+  "results": [
+    {
+      "id": 6127905,
+      "prediction": "Approved",
+      "probability": 1.0,
+      "reason": "Strong financial profile and low-risk indicators.",
+      "input_data": {
+        "CODE_GENDER": "F",
+        "FLAG_OWN_CAR": "N",
+        "FLAG_OWN_REALTY": "Y",
+        "CNT_CHILDREN": 0,
+        "AMT_INCOME_TOTAL": 90000.0,
+        "NAME_INCOME_TYPE": "Pensioner",
+        "NAME_EDUCATION_TYPE": "Secondary / secondary special",
+        "NAME_FAMILY_STATUS": "Separated",
+        "NAME_HOUSING_TYPE": "House / apartment",
+        "DAYS_BIRTH": -23010,
+        "DAYS_EMPLOYED": 365243,
+        "OCCUPATION_TYPE": "nan"
+      }
+    },
+    {
+      "id": 6354314,
+      "prediction": "Approved",
+      "probability": 1.0,
+      "reason": "Strong financial profile and low-risk indicators.",
+      "input_data": {
+        "CODE_GENDER": "F",
+        "FLAG_OWN_CAR": "Y",
+        "FLAG_OWN_REALTY": "Y",
+        "CNT_CHILDREN": 2,
+        "AMT_INCOME_TOTAL": 67500.0,
+        "NAME_INCOME_TYPE": "Commercial associate",
+        "NAME_EDUCATION_TYPE": "Higher education",
+        "NAME_FAMILY_STATUS": "Married",
+        "NAME_HOUSING_TYPE": "House / apartment",
+        "DAYS_BIRTH": -10237,
+        "DAYS_EMPLOYED": -1563,
+        "OCCUPATION_TYPE": "Laborers"
+      }
+    },
+    {
+      "id": 6508890,
+      "prediction": "Approved",
+      "probability": 1.0,
+      "reason": "Strong financial profile and low-risk indicators.",
+      "input_data": {
+        "CODE_GENDER": "F",
+        "FLAG_OWN_CAR": "N",
+        "FLAG_OWN_REALTY": "Y",
+        "CNT_CHILDREN": 1,
+        "AMT_INCOME_TOTAL": 81000.0,
+        "NAME_INCOME_TYPE": "Working",
+        "NAME_EDUCATION_TYPE": "Secondary / secondary special",
+        "NAME_FAMILY_STATUS": "Married",
+        "NAME_HOUSING_TYPE": "House / apartment",
+        "DAYS_BIRTH": -16812,
+        "DAYS_EMPLOYED": -1094,
+        "OCCUPATION_TYPE": "Sales staff"
+      }
+    },
+    {
+      "id": 5996425,
+      "prediction": "Approved",
+      "probability": 1.0,
+      "reason": "Strong financial profile and low-risk indicators.",
+      "input_data": {
+        "CODE_GENDER": "M",
+        "FLAG_OWN_CAR": "N",
+        "FLAG_OWN_REALTY": "Y",
+        "CNT_CHILDREN": 1,
+        "AMT_INCOME_TOTAL": 189000.0,
+        "NAME_INCOME_TYPE": "Working",
+        "NAME_EDUCATION_TYPE": "Secondary / secondary special",
+        "NAME_FAMILY_STATUS": "Married",
+        "NAME_HOUSING_TYPE": "House / apartment",
+        "DAYS_BIRTH": -13516,
+        "DAYS_EMPLOYED": -1312,
+        "OCCUPATION_TYPE": "nan"
+      }
+    },
+    {
+      "id": 5028725,
+      "prediction": "Approved",
+      "probability": 0.9999,
+      "reason": "Strong financial profile and low-risk indicators.",
+      "input_data": {
+        "CODE_GENDER": "M",
+        "FLAG_OWN_CAR": "N",
+        "FLAG_OWN_REALTY": "Y",
+        "CNT_CHILDREN": 0,
+        "AMT_INCOME_TOTAL": 360000.0,
+        "NAME_INCOME_TYPE": "Commercial associate",
+        "NAME_EDUCATION_TYPE": "Secondary / secondary special",
+        "NAME_FAMILY_STATUS": "Married",
+        "NAME_HOUSING_TYPE": "House / apartment",
+        "DAYS_BIRTH": -12483,
+        "DAYS_EMPLOYED": -4039,
+        "OCCUPATION_TYPE": "Managers"
+      }
+    },
+    {
+      "id": 5878879,
+      "prediction": "Approved",
+      "probability": 1.0,
+      "reason": "Strong financial profile and low-risk indicators.",
+      "input_data": {
+        "CODE_GENDER": "F",
+        "FLAG_OWN_CAR": "Y",
+        "FLAG_OWN_REALTY": "Y",
+        "CNT_CHILDREN": 0,
+        "AMT_INCOME_TOTAL": 112500.0,
+        "NAME_INCOME_TYPE": "Pensioner",
+        "NAME_EDUCATION_TYPE": "Secondary / secondary special",
+        "NAME_FAMILY_STATUS": "Married",
+        "NAME_HOUSING_TYPE": "House / apartment",
+        "DAYS_BIRTH": -21220,
+        "DAYS_EMPLOYED": 365243,
+        "OCCUPATION_TYPE": "nan"
+      }
+    },
+    {
+      "id": 6484965,
+      "prediction": "Approved",
+      "probability": 0.9997,
+      "reason": "Strong financial profile and low-risk indicators.",
+      "input_data": {
+        "CODE_GENDER": "F",
+        "FLAG_OWN_CAR": "Y",
+        "FLAG_OWN_REALTY": "Y",
+        "CNT_CHILDREN": 0,
+        "AMT_INCOME_TOTAL": 180000.0,
+        "NAME_INCOME_TYPE": "Commercial associate",
+        "NAME_EDUCATION_TYPE": "Secondary / secondary special",
+        "NAME_FAMILY_STATUS": "Married",
+        "NAME_HOUSING_TYPE": "With parents",
+        "DAYS_BIRTH": -9502,
+        "DAYS_EMPLOYED": -1632,
+        "OCCUPATION_TYPE": "Laborers"
+      }
+    },
+    {
+      "id": 6312432,
+      "prediction": "Approved",
+      "probability": 1.0,
+      "reason": "Strong financial profile and low-risk indicators.",
+      "input_data": {
+        "CODE_GENDER": "M",
+        "FLAG_OWN_CAR": "Y",
+        "FLAG_OWN_REALTY": "Y",
+        "CNT_CHILDREN": 1,
+        "AMT_INCOME_TOTAL": 191250.0,
+        "NAME_INCOME_TYPE": "Working",
+        "NAME_EDUCATION_TYPE": "Higher education",
+        "NAME_FAMILY_STATUS": "Married",
+        "NAME_HOUSING_TYPE": "House / apartment",
+        "DAYS_BIRTH": -13263,
+        "DAYS_EMPLOYED": -4709,
+        "OCCUPATION_TYPE": "Laborers"
+      }
+    },
+    {
+      "id": 5771936,
+      "prediction": "Approved",
+      "probability": 1.0,
+      "reason": "Strong financial profile and low-risk indicators.",
+      "input_data": {
+        "CODE_GENDER": "F",
+        "FLAG_OWN_CAR": "N",
+        "FLAG_OWN_REALTY": "Y",
+        "CNT_CHILDREN": 0,
+        "AMT_INCOME_TOTAL": 292500.0,
+        "NAME_INCOME_TYPE": "Commercial associate",
+        "NAME_EDUCATION_TYPE": "Higher education",
+        "NAME_FAMILY_STATUS": "Married",
+        "NAME_HOUSING_TYPE": "House / apartment",
+        "DAYS_BIRTH": -16476,
+        "DAYS_EMPLOYED": -3977,
+        "OCCUPATION_TYPE": "Managers"
+      }
+    },
+    {
+      "id": 6144701,
+      "prediction": "Approved",
+      "probability": 0.9998,
+      "reason": "Strong financial profile and low-risk indicators.",
+      "input_data": {
+        "CODE_GENDER": "M",
+        "FLAG_OWN_CAR": "Y",
+        "FLAG_OWN_REALTY": "Y",
+        "CNT_CHILDREN": 0,
+        "AMT_INCOME_TOTAL": 225000.0,
+        "NAME_INCOME_TYPE": "State servant",
+        "NAME_EDUCATION_TYPE": "Higher education",
+        "NAME_FAMILY_STATUS": "Married",
+        "NAME_HOUSING_TYPE": "House / apartment",
+        "DAYS_BIRTH": -11825,
+        "DAYS_EMPLOYED": -4269,
+        "OCCUPATION_TYPE": "Core staff"
+      }
+    }
+  ]
+}

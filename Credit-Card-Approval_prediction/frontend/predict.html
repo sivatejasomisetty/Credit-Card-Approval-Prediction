@@ -1,0 +1,669 @@
+{% extends "base.html" %}
+
+{% block title %}Check Eligibility | Credit Card Approval{% endblock %}
+
+{% block extra_css %}
+        /* Predictor View styling */
+        #predictor-container {
+            background: url('/static/assets/image_copy.png') no-repeat center center / cover;
+            border-radius: 20px;
+            padding: 3.5rem;
+            max-width: 900px;
+            margin: 0 auto 3rem auto;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-glass-card {
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(20px) saturate(190%);
+            -webkit-backdrop-filter: blur(20px) saturate(190%);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 16px;
+            padding: 3rem 2.5rem;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.04);
+            width: 100%;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--ink-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input, select {
+            background-color: var(--surface-1);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--ink);
+            padding: 0.75rem 1rem;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 86, 210, 0.15);
+        }
+
+        .btn-submit {
+            grid-column: span 2;
+            background-color: var(--primary);
+            color: var(--on-primary);
+            border: none;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 86, 210, 0.1);
+            transition: var(--transition);
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .btn-submit {
+                grid-column: span 1;
+            }
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 86, 210, 0.2);
+        }
+
+        .btn-autofill {
+            background-color: var(--surface-1);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .btn-autofill:hover {
+            background-color: var(--primary);
+            color: var(--on-primary);
+            transform: translateY(-1px);
+        }
+
+        /* Inline Loader & Result styles inside card */
+        .spinner {
+            width: 3.5rem;
+            height: 3.5rem;
+            border: 4px solid var(--border);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .modal-result-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 5.5rem;
+            height: 5.5rem;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-result-icon.approved {
+            background-color: rgba(31, 161, 95, 0.1);
+            color: var(--grade-pass);
+        }
+
+        .modal-result-icon.denied {
+            background-color: rgba(217, 83, 79, 0.1);
+            color: var(--grade-fail);
+        }
+
+        .modal-result-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .modal-result-title.approved { color: var(--grade-pass); }
+        .modal-result-title.denied { color: var(--grade-fail); }
+
+        .modal-result-probability {
+            font-size: 1.05rem;
+            color: var(--ink-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-result-reason {
+            background-color: var(--canvas-subdued);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 1.25rem;
+            color: var(--ink);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+            max-width: 600px;
+            width: 100%;
+        }
+            margin-bottom: 1.25rem;
+        }
+
+        .result-reason {
+            background-color: var(--canvas-subdued);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--ink);
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 768px) {
+            #predictor-container {
+                padding: 1.5rem 1rem;
+            }
+            .form-glass-card {
+                padding: 1.5rem 1.25rem;
+            }
+        }
+{% endblock %}
+
+{% block content %}
+        <!-- PREDICTOR SECTION -->
+        <div id="predictor-container">
+            <div class="form-glass-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.75rem;">
+                    <h2 style="color: var(--ink);">Predictor Form</h2>
+                    <button type="button" class="btn-autofill" onclick="autofillRandom()">Autofill Random</button>
+                </div>
+                <form id="predictionForm" onsubmit="submitForm(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="applicant_id">Applicant ID</label>
+                            <input type="text" id="applicant_id" name="ID" required placeholder="e.g. 5008804">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select id="gender" name="CODE_GENDER" required>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="own_car">Owns a Car?</label>
+                            <select id="own_car" name="FLAG_OWN_CAR" required>
+                                <option value="Y">Yes</option>
+                                <option value="N">No</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="own_realty">Owns Real Estate Property?</label>
+                            <select id="own_realty" name="FLAG_OWN_REALTY" required>
+                                <option value="Y">Yes</option>
+                                <option value="N">No</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="income">Annual Income ($)</label>
+                            <input type="number" id="income" name="AMT_INCOME_TOTAL" required placeholder="e.g. 150000" min="0">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="children">Number of Children</label>
+                            <input type="number" id="children" name="CNT_CHILDREN" required placeholder="0" min="0">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="income_type">Income Source Type</label>
+                            <select id="income_type" name="NAME_INCOME_TYPE" required>
+                                <option value="Working">Working</option>
+                                <option value="Commercial associate">Commercial associate</option>
+                                <option value="Pensioner">Pensioner</option>
+                                <option value="State servant">State servant</option>
+                                <option value="Student">Student</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="education_type">Highest Completed Education Level</label>
+                            <select id="education_type" name="NAME_EDUCATION_TYPE" required>
+                                <option value="Secondary / secondary special">Secondary / secondary special</option>
+                                <option value="Higher education">Higher education</option>
+                                <option value="Incomplete higher">Incomplete higher</option>
+                                <option value="Lower secondary">Lower secondary</option>
+                                <option value="Academic degree">Academic degree</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="family_status">Marital Status</label>
+                            <select id="family_status" name="NAME_FAMILY_STATUS" required>
+                                <option value="Married">Married</option>
+                                <option value="Single / not married">Single / not married</option>
+                                <option value="Civil marriage">Civil marriage</option>
+                                <option value="Separated">Separated</option>
+                                <option value="Widow">Widow</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="housing_type">Housing Situation</label>
+                            <select id="housing_type" name="NAME_HOUSING_TYPE" required>
+                                <option value="House / apartment">House / apartment</option>
+                                <option value="Rented apartment">Rented apartment</option>
+                                <option value="Municipal apartment">Municipal apartment</option>
+                                <option value="With parents">With parents</option>
+                                <option value="Co-op apartment">Co-op apartment</option>
+                                <option value="Office apartment">Office apartment</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="age_years">Age (in Years)</label>
+                            <input type="number" id="age_years" name="AGE_YEARS" required placeholder="e.g. 28" min="18" max="100">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="employment_status">Employment Status</label>
+                            <select id="employment_status" name="EMPLAYMENT_STATUS" required onchange="toggleEmploymentInput()">
+                                <option value="Employed">Employed</option>
+                                <option value="Unemployed">Unemployed / Pensioner</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="emp-years-group">
+                            <label for="years_employed">Years of Employment</label>
+                            <input type="number" id="years_employed" name="YEARS_EMPLOYED_INPUT" required placeholder="e.g. 4" min="0" step="0.5">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="occupation_type">Occupation Category</label>
+                            <select id="occupation_type" name="OCCUPATION_TYPE" required>
+                                <option value="Laborers">Laborers</option>
+                                <option value="Core staff">Core staff</option>
+                                <option value="Sales staff">Sales staff</option>
+                                <option value="Managers">Managers</option>
+                                <option value="Drivers">Drivers</option>
+                                <option value="High skill tech staff">High skill tech staff</option>
+                                <option value="Accountants">Accountants</option>
+                                <option value="Medicine staff">Medicine staff</option>
+                                <option value="Security staff">Security staff</option>
+                                <option value="Cooking staff">Cooking staff</option>
+                                <option value="Cleaning staff">Cleaning staff</option>
+                                <option value="Private service staff">Private service staff</option>
+                                <option value="Low-skill Laborers">Low-skill Laborers</option>
+                                <option value="Secretaries">Secretaries</option>
+                                <option value="Waiters/barmen staff">Waiters/barmen staff</option>
+                                <option value="HR staff">HR staff</option>
+                                <option value="Realty agents">Realty agents</option>
+                                <option value="IT staff">IT staff</option>
+                                <option value="Unknown">Unknown</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fam_members">Family Members Count</label>
+                            <input type="number" id="fam_members" name="CNT_FAM_MEMBERS" required placeholder="e.g. 2" min="1">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="flag_mobil">Has Mobile Phone?</label>
+                            <select id="flag_mobil" name="FLAG_MOBIL" required>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="flag_work_phone">Has Work Phone?</label>
+                            <select id="flag_work_phone" name="FLAG_WORK_PHONE" required>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="flag_phone">Has Home Phone?</label>
+                            <select id="flag_phone" name="FLAG_PHONE" required>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="flag_email">Has Email Registered?</label>
+                            <select id="flag_email" name="FLAG_EMAIL" required>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn-submit">Submit Application</button>
+                    </div>
+                </form>
+
+                <!-- Inline Card Loader -->
+                <div id="formLoader" style="display: none; flex-direction: column; align-items: center; text-align: center; padding: 4rem 1rem;">
+                    <div class="spinner"></div>
+                    <p style="margin-top: 1.5rem; font-weight: 700; font-size: 1.2rem; color: var(--ink); letter-spacing: -0.5px;">Evaluating Application</p>
+                    <p style="color: var(--ink-muted); font-size: 0.95rem; margin-top: 0.3rem;" id="loaderStep">Analyzing demographic factors...</p>
+                </div>
+                
+                <!-- Inline Card Result -->
+                <div id="formResult" style="display: none; flex-direction: column; align-items: center; text-align: center; padding: 2rem 1rem; animation: fadeIn 0.3s ease-out;">
+                    <div id="resultIcon" class="modal-result-icon"></div>
+                    <h3 id="resultTitle" class="modal-result-title"></h3>
+                    <div id="resultProbability" class="modal-result-probability"></div>
+                    <div id="resultReason" class="modal-result-reason"></div>
+                    <button type="button" class="btn-submit" style="max-width: 250px; margin-top: 1rem;" onclick="resetForm()">Check Another Profile</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- HISTORY SECTION -->
+        <div class="section-header">
+            <h2>Decision Logs</h2>
+            <p>Historical evaluation records logged dynamically from local database runs.</p>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Applicant ID</th>
+                        <th>Income ($)</th>
+                        <th>Verdict</th>
+                        <th>Confidence</th>
+                        <th>Reason</th>
+                    </tr>
+                </thead>
+                <tbody id="historyTableBody">
+                    <!-- History rows injected here -->
+                </tbody>
+            </table>
+        </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        // Generate 50 realistic mock records programmatically
+        const genders = ['M', 'F'];
+        const yesNo = ['Y', 'N'];
+        const incomes = [45000, 75000, 112500, 135000, 150000, 180000, 202500, 225000, 270000, 315000, 450000];
+        const incomeTypes = ['Working', 'Commercial associate', 'State servant', 'Pensioner', 'Student'];
+        const educationTypes = ['Secondary / secondary special', 'Higher education', 'Incomplete higher', 'Lower secondary', 'Academic degree'];
+        const familyStatuses = ['Married', 'Single / not married', 'Civil marriage', 'Separated', 'Widow'];
+        const housingTypes = ['House / apartment', 'Rented apartment', 'Municipal apartment', 'With parents', 'Co-op apartment', 'Office apartment'];
+        const occupations = ['Laborers', 'Core staff', 'Sales staff', 'Managers', 'Drivers', 'High skill tech staff', 'Accountants', 'Medicine staff', 'Security staff', 'Cooking staff', 'Unknown'];
+
+        const mockRecords = [];
+        for (let i = 0; i < 50; i++) {
+            const isHighRisk = (i % 3 === 0); // 33% high risk profiles
+            const income = isHighRisk 
+                ? (20000 + (i * 700) % 25000) // Low income ($20k - $45k)
+                : (125000 + (i * 8000) % 220000); // Standard/High income ($125k - $345k)
+            
+            const children = isHighRisk ? (i % 2 === 0 ? 3 : 2) : (i % 2); // Larger families for high risk
+            const isEmployed = isHighRisk ? (i % 2 === 0) : true; 
+            const status = isEmployed ? 'Employed' : 'Unemployed';
+            const yearsEmp = isEmployed 
+                ? (isHighRisk ? parseFloat((0.2 + (i % 4) * 0.2).toFixed(1)) : parseFloat((2.5 + (i % 8) * 1.5).toFixed(1))) 
+                : 0;
+            
+            mockRecords.push({
+                CODE_GENDER: genders[i % genders.length],
+                FLAG_OWN_CAR: yesNo[i % yesNo.length],
+                FLAG_OWN_REALTY: isHighRisk ? 'N' : yesNo[(i + 1) % yesNo.length],
+                AMT_INCOME_TOTAL: income,
+                CNT_CHILDREN: children,
+                NAME_INCOME_TYPE: isEmployed ? incomeTypes[i % (incomeTypes.length - 1)] : 'Pensioner',
+                NAME_EDUCATION_TYPE: isHighRisk ? 'Secondary / secondary special' : educationTypes[i % educationTypes.length],
+                NAME_FAMILY_STATUS: familyStatuses[i % familyStatuses.length],
+                NAME_HOUSING_TYPE: housingTypes[i % housingTypes.length],
+                AGE_YEARS: isHighRisk ? (20 + (i % 15)) : (28 + (i % 35)),
+                EMPLAYMENT_STATUS: status,
+                YEARS_EMPLOYED_INPUT: yearsEmp,
+                OCCUPATION_TYPE: isEmployed ? (isHighRisk ? 'Low-skill Laborers' : occupations[i % occupations.length]) : 'Unknown',
+                CNT_FAM_MEMBERS: children + (i % 2 ? 2 : 1),
+                FLAG_MOBIL: 1,
+                FLAG_WORK_PHONE: i % 2,
+                FLAG_PHONE: i % 3 === 0 ? 1 : 0,
+                FLAG_EMAIL: i % 4 === 0 ? 1 : 0
+            });
+        }
+
+        // Autofill a random mock record
+        function autofillRandom() {
+            const randomIndex = Math.floor(Math.random() * mockRecords.length);
+            const record = mockRecords[randomIndex];
+
+            // Generate a random 7-digit applicant ID to show it can be anything
+            document.getElementById('applicant_id').value = Math.floor(5000000 + Math.random() * 900000);
+            
+            document.getElementById('gender').value = record.CODE_GENDER;
+            document.getElementById('own_car').value = record.FLAG_OWN_CAR;
+            document.getElementById('own_realty').value = record.FLAG_OWN_REALTY;
+            document.getElementById('income').value = record.AMT_INCOME_TOTAL;
+            document.getElementById('children').value = record.CNT_CHILDREN;
+            document.getElementById('income_type').value = record.NAME_INCOME_TYPE;
+            document.getElementById('education_type').value = record.NAME_EDUCATION_TYPE;
+            document.getElementById('family_status').value = record.NAME_FAMILY_STATUS;
+            document.getElementById('housing_type').value = record.NAME_HOUSING_TYPE;
+            document.getElementById('age_years').value = record.AGE_YEARS;
+            document.getElementById('employment_status').value = record.EMPLAYMENT_STATUS;
+            
+            // Trigger toggle logic first to display/hide fields
+            toggleEmploymentInput();
+            
+            document.getElementById('years_employed').value = record.YEARS_EMPLOYED_INPUT;
+            document.getElementById('occupation_type').value = record.OCCUPATION_TYPE;
+            document.getElementById('fam_members').value = record.CNT_FAM_MEMBERS;
+            document.getElementById('flag_mobil').value = record.FLAG_MOBIL;
+            document.getElementById('flag_work_phone').value = record.FLAG_WORK_PHONE;
+            document.getElementById('flag_phone').value = record.FLAG_PHONE;
+            document.getElementById('flag_email').value = record.FLAG_EMAIL;
+        }
+
+        // Toggle display of experience input based on employment status
+        function toggleEmploymentInput() {
+            const status = document.getElementById('employment_status').value;
+            const yearsGroup = document.getElementById('emp-years-group');
+            const yearsInput = document.getElementById('years_employed');
+            
+            if (status === 'Unemployed') {
+                yearsGroup.style.display = 'none';
+                yearsInput.required = false;
+                yearsInput.value = '0';
+            } else {
+                yearsGroup.style.display = 'flex';
+                yearsInput.required = true;
+            }
+        }
+
+        // Reset and show form back
+        function resetForm() {
+            document.getElementById('predictionForm').reset();
+            document.getElementById('predictionForm').style.display = 'block';
+            document.getElementById('formLoader').style.display = 'none';
+            document.getElementById('formResult').style.display = 'none';
+            
+            // Re-align default employment inputs
+            toggleEmploymentInput();
+            
+            // Scroll back smoothly to top of container
+            document.getElementById('predictor-container').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // AJAX Form submission
+        function submitForm(event) {
+            event.preventDefault();
+            
+            // Scroll to the top of the container immediately on submit
+            document.getElementById('predictor-container').scrollIntoView({ behavior: 'smooth' });
+            
+            const form = document.getElementById('predictionForm');
+            const formData = new FormData(form);
+            const jsonObject = {};
+            
+            formData.forEach((value, key) => {
+                if (['AMT_INCOME_TOTAL', 'CNT_CHILDREN', 'AGE_YEARS', 'YEARS_EMPLOYED_INPUT', 
+                     'FLAG_MOBIL', 'FLAG_WORK_PHONE', 'FLAG_PHONE', 'FLAG_EMAIL', 'CNT_FAM_MEMBERS'].includes(key)) {
+                    jsonObject[key] = parseFloat(value);
+                } else {
+                    jsonObject[key] = value;
+                }
+            });
+
+            // Swap view to loading state
+            const loader = document.getElementById('formLoader');
+            const resultDiv = document.getElementById('formResult');
+            const stepText = document.getElementById('loaderStep');
+
+            form.style.display = 'none';
+            loader.style.display = 'flex';
+            resultDiv.style.display = 'none';
+            stepText.innerText = 'Analyzing demographic factors...';
+
+            const startTime = Date.now();
+
+            // Dynamic status updates
+            const t1 = setTimeout(() => stepText.innerText = 'Querying Random Forest model...', 450);
+            const t2 = setTimeout(() => stepText.innerText = 'Validating credit risk clearance...', 900);
+
+            fetch('/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(jsonObject)
+            })
+            .then(res => res.json())
+            .then(data => {
+                const elapsed = Date.now() - startTime;
+                const remaining = Math.max(1300 - elapsed, 0);
+
+                // Wait for simulation to finish to avoid flickering
+                setTimeout(() => {
+                    clearTimeout(t1);
+                    clearTimeout(t2);
+
+                    loader.style.display = 'none';
+                    resultDiv.style.display = 'flex';
+
+                    const icon = document.getElementById('resultIcon');
+                    const title = document.getElementById('resultTitle');
+                    const prob = document.getElementById('resultProbability');
+                    const reason = document.getElementById('resultReason');
+
+                    if (data.prediction === 'Approved') {
+                        icon.className = 'modal-result-icon approved';
+                        icon.innerHTML = '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+                        title.className = 'modal-result-title approved';
+                        title.innerText = 'Application Approved';
+                    } else {
+                        icon.className = 'modal-result-icon denied';
+                        icon.innerHTML = '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+                        title.className = 'modal-result-title denied';
+                        title.innerText = 'Application Denied';
+                    }
+
+                    prob.innerText = `Calculated Approval Confidence: ${(data.probability * 100).toFixed(2)}%`;
+                    
+                    const reasonsArray = data.reason.split(' | ');
+                    reason.innerHTML = '<ul style="text-align: left; padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; list-style-type: disc;">' + 
+                                       reasonsArray.map(r => `<li>${r}</li>`).join('') + 
+                                       '</ul>';
+
+                    // reload history table
+                    loadHistory();
+                }, remaining);
+            })
+            .catch(err => {
+                clearTimeout(t1);
+                clearTimeout(t2);
+                loader.style.display = 'none';
+                form.style.display = 'block';
+                console.error("Prediction failed:", err);
+                alert("Error during approval check. Please review inputs.");
+            });
+        }
+
+        // AJAX Load past predictions history
+        function loadHistory() {
+            fetch('/history_data')
+            .then(res => res.json())
+            .then(data => {
+                const body = document.getElementById('historyTableBody');
+                body.innerHTML = '';
+
+                if (!data.predictions || data.predictions.length === 0) {
+                    body.innerHTML = '<tr><td colspan="6" style="text-align:center;">No past decisions found.</td></tr>';
+                    return;
+                }
+
+                data.predictions.forEach(item => {
+                    const row = document.createElement('tr');
+                    
+                    const timeStr = new Date(item.timestamp).toLocaleString();
+                    const badgeClass = item.prediction === 'Approved' ? 'badge-approved' : 'badge-denied';
+                    const formattedVerdict = item.prediction === 'Approved' ? 'Approved' : 'Denied';
+                    const formattedIncome = item.input_data ? `$${item.input_data.AMT_INCOME_TOTAL.toLocaleString()}` : 'N/A';
+
+                    row.innerHTML = `
+                        <td>${timeStr}</td>
+                        <td><strong>${item.applicant_id}</strong></td>
+                        <td>${formattedIncome}</td>
+                        <td><span class="badge ${badgeClass}">${formattedVerdict}</span></td>
+                        <td>${(item.probability * 100).toFixed(2)}%</td>
+                        <td>${item.reason}</td>
+                    `;
+                    body.appendChild(row);
+                });
+            })
+            .catch(err => {
+                console.error("Could not fetch history:", err);
+            });
+        }
+
+        window.onload = loadHistory;
+    </script>
+{% endblock %}

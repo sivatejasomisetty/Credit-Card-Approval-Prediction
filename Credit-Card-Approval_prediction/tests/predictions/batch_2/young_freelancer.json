@@ -1,0 +1,29 @@
+{
+  "candidate": "Young freelancer",
+  "applicant_id": 20005,
+  "prediction": "Denied",
+  "probability": 0.2849,
+  "reason": "Mixed profile with notable risk signals; review recommended.",
+  "input_data": {
+    "ID": 20005,
+    "CODE_GENDER": "F",
+    "FLAG_OWN_CAR": "Y",
+    "FLAG_OWN_REALTY": "N",
+    "CNT_CHILDREN": 0,
+    "AMT_INCOME_TOTAL": 125000,
+    "NAME_INCOME_TYPE": "Commercial associate",
+    "NAME_EDUCATION_TYPE": "Higher education",
+    "NAME_FAMILY_STATUS": "Single / not married",
+    "NAME_HOUSING_TYPE": "Municipal apartment",
+    "DAYS_BIRTH": -24000,
+    "DAYS_EMPLOYED": -700,
+    "FLAG_MOBIL": 1,
+    "FLAG_WORK_PHONE": 1,
+    "FLAG_PHONE": 1,
+    "FLAG_EMAIL": 1,
+    "OCCUPATION_TYPE": "Private service staff",
+    "CNT_FAM_MEMBERS": 1,
+    "DAYS_REGISTRATION": -1000,
+    "DAYS_ID_PUBLISH": -500
+  }
+}

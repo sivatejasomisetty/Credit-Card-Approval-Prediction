@@ -1,0 +1,20 @@
+{
+  "id": 5028725,
+  "prediction": "Approved",
+  "probability": 0.9999,
+  "reason": "Strong financial profile and low-risk indicators.",
+  "input_data": {
+    "CODE_GENDER": "M",
+    "FLAG_OWN_CAR": "N",
+    "FLAG_OWN_REALTY": "Y",
+    "CNT_CHILDREN": 0,
+    "AMT_INCOME_TOTAL": 360000.0,
+    "NAME_INCOME_TYPE": "Commercial associate",
+    "NAME_EDUCATION_TYPE": "Secondary / secondary special",
+    "NAME_FAMILY_STATUS": "Married",
+    "NAME_HOUSING_TYPE": "House / apartment",
+    "DAYS_BIRTH": -12483,
+    "DAYS_EMPLOYED": -4039,
+    "OCCUPATION_TYPE": "Managers"
+  }
+}

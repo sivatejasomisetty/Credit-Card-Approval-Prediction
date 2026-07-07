@@ -1,0 +1,20 @@
+{
+  "id": 6312432,
+  "prediction": "Approved",
+  "probability": 1.0,
+  "reason": "Strong financial profile and low-risk indicators.",
+  "input_data": {
+    "CODE_GENDER": "M",
+    "FLAG_OWN_CAR": "Y",
+    "FLAG_OWN_REALTY": "Y",
+    "CNT_CHILDREN": 1,
+    "AMT_INCOME_TOTAL": 191250.0,
+    "NAME_INCOME_TYPE": "Working",
+    "NAME_EDUCATION_TYPE": "Higher education",
+    "NAME_FAMILY_STATUS": "Married",
+    "NAME_HOUSING_TYPE": "House / apartment",
+    "DAYS_BIRTH": -13263,
+    "DAYS_EMPLOYED": -4709,
+    "OCCUPATION_TYPE": "Laborers"
+  }
+}

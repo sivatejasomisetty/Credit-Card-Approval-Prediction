@@ -1,0 +1,20 @@
+{
+  "id": 6144701,
+  "prediction": "Approved",
+  "probability": 0.9998,
+  "reason": "Strong financial profile and low-risk indicators.",
+  "input_data": {
+    "CODE_GENDER": "M",
+    "FLAG_OWN_CAR": "Y",
+    "FLAG_OWN_REALTY": "Y",
+    "CNT_CHILDREN": 0,
+    "AMT_INCOME_TOTAL": 225000.0,
+    "NAME_INCOME_TYPE": "State servant",
+    "NAME_EDUCATION_TYPE": "Higher education",
+    "NAME_FAMILY_STATUS": "Married",
+    "NAME_HOUSING_TYPE": "House / apartment",
+    "DAYS_BIRTH": -11825,
+    "DAYS_EMPLOYED": -4269,
+    "OCCUPATION_TYPE": "Core staff"
+  }
+}

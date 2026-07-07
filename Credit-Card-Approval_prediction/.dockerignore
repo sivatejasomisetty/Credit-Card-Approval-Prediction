@@ -1,0 +1,23 @@
+# Exclude raw training data
+data/
+
+# Exclude Jupyter notebooks and training research
+notebook/
+
+# Exclude unused large model pipelines
+models/decision_tree.joblib
+models/logistic_regression.joblib
+models/xgboost.joblib
+
+# Exclude test files
+tests/
+
+# Exclude local Python cache files
+__pycache__/
+*.pyc
+*.pyo
+.git/
+.gitignore
+.dockerignore
+Dockerfile
+README.md

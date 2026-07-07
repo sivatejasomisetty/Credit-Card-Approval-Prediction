@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-06-27T15:41:21.730128",
+  "applicant_id": "5119845",
+  "prediction": "Approved",
+  "probability": 0.9009,
+  "reason": "Strong financial profile and low-risk credit history indicators.",
+  "input_data": {
+    "AMT_INCOME_TOTAL": 177000,
+    "NAME_INCOME_TYPE": "State servant",
+    "NAME_EDUCATION_TYPE": "Academic degree"
+  }
+}

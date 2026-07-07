@@ -1,0 +1,91 @@
+{
+  "examples": [
+    {
+      "scenario": "Moderate applicant",
+      "applicant_id": 9999002,
+      "prediction": "Approved",
+      "probability": 1.0,
+      "reason": "Strong financial profile and low-risk indicators.",
+      "input_data": {
+        "ID": 9999002,
+        "CODE_GENDER": "M",
+        "FLAG_OWN_CAR": "Y",
+        "FLAG_OWN_REALTY": "Y",
+        "CNT_CHILDREN": 2,
+        "AMT_INCOME_TOTAL": 140000,
+        "NAME_INCOME_TYPE": "Working",
+        "NAME_EDUCATION_TYPE": "Secondary / secondary special",
+        "NAME_FAMILY_STATUS": "Married",
+        "NAME_HOUSING_TYPE": "House / apartment",
+        "DAYS_BIRTH": -35000,
+        "DAYS_EMPLOYED": -2000,
+        "FLAG_MOBIL": 1,
+        "FLAG_WORK_PHONE": 0,
+        "FLAG_PHONE": 1,
+        "FLAG_EMAIL": 0,
+        "OCCUPATION_TYPE": "Sales staff",
+        "CNT_FAM_MEMBERS": 4,
+        "DAYS_REGISTRATION": -1200,
+        "DAYS_ID_PUBLISH": -700
+      }
+    },
+    {
+      "scenario": "Riskier applicant",
+      "applicant_id": 9999003,
+      "prediction": "Approved",
+      "probability": 1.0,
+      "reason": "Strong financial profile and low-risk indicators.",
+      "input_data": {
+        "ID": 9999003,
+        "CODE_GENDER": "F",
+        "FLAG_OWN_CAR": "N",
+        "FLAG_OWN_REALTY": "N",
+        "CNT_CHILDREN": 3,
+        "AMT_INCOME_TOTAL": 60000,
+        "NAME_INCOME_TYPE": "Pension",
+        "NAME_EDUCATION_TYPE": "Secondary / secondary special",
+        "NAME_FAMILY_STATUS": "Civil marriage",
+        "NAME_HOUSING_TYPE": "Rented apartment",
+        "DAYS_BIRTH": -45000,
+        "DAYS_EMPLOYED": -500,
+        "FLAG_MOBIL": 1,
+        "FLAG_WORK_PHONE": 0,
+        "FLAG_PHONE": 0,
+        "FLAG_EMAIL": 0,
+        "OCCUPATION_TYPE": "Unknown",
+        "CNT_FAM_MEMBERS": 5,
+        "DAYS_REGISTRATION": -900,
+        "DAYS_ID_PUBLISH": -400
+      }
+    },
+    {
+      "scenario": "Strong applicant",
+      "applicant_id": 9999001,
+      "prediction": "Approved",
+      "probability": 1.0,
+      "reason": "Strong financial profile and low-risk indicators.",
+      "input_data": {
+        "ID": 9999001,
+        "CODE_GENDER": "F",
+        "FLAG_OWN_CAR": "N",
+        "FLAG_OWN_REALTY": "Y",
+        "CNT_CHILDREN": 0,
+        "AMT_INCOME_TOTAL": 250000,
+        "NAME_INCOME_TYPE": "Working",
+        "NAME_EDUCATION_TYPE": "Higher education",
+        "NAME_FAMILY_STATUS": "Single / not married",
+        "NAME_HOUSING_TYPE": "House / apartment",
+        "DAYS_BIRTH": -30000,
+        "DAYS_EMPLOYED": -4000,
+        "FLAG_MOBIL": 1,
+        "FLAG_WORK_PHONE": 1,
+        "FLAG_PHONE": 1,
+        "FLAG_EMAIL": 1,
+        "OCCUPATION_TYPE": "Managers",
+        "CNT_FAM_MEMBERS": 1,
+        "DAYS_REGISTRATION": -2000,
+        "DAYS_ID_PUBLISH": -1000
+      }
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "scenario": "Riskier applicant",
+  "applicant_id": 9999003,
+  "prediction": "Approved",
+  "probability": 1.0,
+  "reason": "Strong financial profile and low-risk indicators.",
+  "input_data": {
+    "ID": 9999003,
+    "CODE_GENDER": "F",
+    "FLAG_OWN_CAR": "N",
+    "FLAG_OWN_REALTY": "N",
+    "CNT_CHILDREN": 3,
+    "AMT_INCOME_TOTAL": 60000,
+    "NAME_INCOME_TYPE": "Pension",
+    "NAME_EDUCATION_TYPE": "Secondary / secondary special",
+    "NAME_FAMILY_STATUS": "Civil marriage",
+    "NAME_HOUSING_TYPE": "Rented apartment",
+    "DAYS_BIRTH": -45000,
+    "DAYS_EMPLOYED": -500,
+    "FLAG_MOBIL": 1,
+    "FLAG_WORK_PHONE": 0,
+    "FLAG_PHONE": 0,
+    "FLAG_EMAIL": 0,
+    "OCCUPATION_TYPE": "Unknown",
+    "CNT_FAM_MEMBERS": 5,
+    "DAYS_REGISTRATION": -900,
+    "DAYS_ID_PUBLISH": -400
+  }
+}

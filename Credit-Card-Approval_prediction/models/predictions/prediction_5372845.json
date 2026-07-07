@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-07-05T10:01:23.191578",
+  "applicant_id": "5372845",
+  "prediction": "Approved",
+  "probability": 0.9162,
+  "reason": "Strong annual income ($281,000.00) satisfies standard banking capital buffers. | Stable career tenure (13.0 years) exhibits solid professional stability. | Acceptable dependency index (1 children, 3 family members).",
+  "input_data": {
+    "AMT_INCOME_TOTAL": 281000,
+    "NAME_INCOME_TYPE": "Pensioner",
+    "NAME_EDUCATION_TYPE": "Incomplete higher"
+  }
+}

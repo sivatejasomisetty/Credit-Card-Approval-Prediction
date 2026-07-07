@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-06-27T15:49:50.728871",
+  "applicant_id": "5894946",
+  "prediction": "Denied",
+  "probability": 0.1271,
+  "reason": "High-risk pattern detected; history of delinquent accounts or severe late payments.",
+  "input_data": {
+    "AMT_INCOME_TOTAL": 22100,
+    "NAME_INCOME_TYPE": "Pensioner",
+    "NAME_EDUCATION_TYPE": "Secondary / secondary special"
+  }
+}

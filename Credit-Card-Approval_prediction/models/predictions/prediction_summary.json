@@ -1,0 +1,173 @@
+{
+  "total_predictions": 13,
+  "latest_prediction": {
+    "timestamp": "2026-07-05T10:01:23.191578",
+    "applicant_id": "5372845",
+    "prediction": "Approved",
+    "probability": 0.9162,
+    "reason": "Strong annual income ($281,000.00) satisfies standard banking capital buffers. | Stable career tenure (13.0 years) exhibits solid professional stability. | Acceptable dependency index (1 children, 3 family members).",
+    "input_data": {
+      "AMT_INCOME_TOTAL": 281000,
+      "NAME_INCOME_TYPE": "Pensioner",
+      "NAME_EDUCATION_TYPE": "Incomplete higher"
+    }
+  },
+  "predictions": [
+    {
+      "timestamp": "2026-06-27T15:39:39.337644",
+      "applicant_id": "5008032",
+      "prediction": "Approved",
+      "probability": 0.9841,
+      "reason": "Strong financial profile and low-risk credit history indicators.",
+      "input_data": {
+        "AMT_INCOME_TOTAL": 450000,
+        "NAME_INCOME_TYPE": "Working",
+        "NAME_EDUCATION_TYPE": "Incomplete higher"
+      }
+    },
+    {
+      "timestamp": "2026-06-27T15:39:47.294072",
+      "applicant_id": "5008020",
+      "prediction": "Approved",
+      "probability": 0.904,
+      "reason": "Strong financial profile and low-risk credit history indicators.",
+      "input_data": {
+        "AMT_INCOME_TOTAL": 315000,
+        "NAME_INCOME_TYPE": "Pensioner",
+        "NAME_EDUCATION_TYPE": "Secondary / secondary special"
+      }
+    },
+    {
+      "timestamp": "2026-06-27T15:39:55.204734",
+      "applicant_id": "5008036",
+      "prediction": "Approved",
+      "probability": 0.9072,
+      "reason": "Strong financial profile and low-risk credit history indicators.",
+      "input_data": {
+        "AMT_INCOME_TOTAL": 135000,
+        "NAME_INCOME_TYPE": "Working",
+        "NAME_EDUCATION_TYPE": "Higher education"
+      }
+    },
+    {
+      "timestamp": "2026-06-27T15:39:59.510703",
+      "applicant_id": "5008030",
+      "prediction": "Approved",
+      "probability": 0.9201,
+      "reason": "Strong financial profile and low-risk credit history indicators.",
+      "input_data": {
+        "AMT_INCOME_TOTAL": 270000,
+        "NAME_INCOME_TYPE": "Pensioner",
+        "NAME_EDUCATION_TYPE": "Secondary / secondary special"
+      }
+    },
+    {
+      "timestamp": "2026-06-27T15:41:21.730128",
+      "applicant_id": "5119845",
+      "prediction": "Approved",
+      "probability": 0.9009,
+      "reason": "Strong financial profile and low-risk credit history indicators.",
+      "input_data": {
+        "AMT_INCOME_TOTAL": 177000,
+        "NAME_INCOME_TYPE": "State servant",
+        "NAME_EDUCATION_TYPE": "Academic degree"
+      }
+    },
+    {
+      "timestamp": "2026-06-27T15:41:29.286906",
+      "applicant_id": "5894263",
+      "prediction": "Approved",
+      "probability": 0.9166,
+      "reason": "Strong financial profile and low-risk credit history indicators.",
+      "input_data": {
+        "AMT_INCOME_TOTAL": 181000,
+        "NAME_INCOME_TYPE": "Pensioner",
+        "NAME_EDUCATION_TYPE": "Incomplete higher"
+      }
+    },
+    {
+      "timestamp": "2026-06-27T15:41:56.918001",
+      "applicant_id": "5696734",
+      "prediction": "Denied",
+      "probability": 0.2873,
+      "reason": "High-risk pattern detected; history of delinquent accounts or severe late payments.",
+      "input_data": {
+        "AMT_INCOME_TOTAL": 32600,
+        "NAME_INCOME_TYPE": "State servant",
+        "NAME_EDUCATION_TYPE": "Secondary / secondary special"
+      }
+    },
+    {
+      "timestamp": "2026-06-27T15:48:06.201652",
+      "applicant_id": "5050974",
+      "prediction": "Approved",
+      "probability": 0.9135,
+      "reason": "Strong financial profile and low-risk credit history indicators.",
+      "input_data": {
+        "AMT_INCOME_TOTAL": 201000,
+        "NAME_INCOME_TYPE": "Commercial associate",
+        "NAME_EDUCATION_TYPE": "Incomplete higher"
+      }
+    },
+    {
+      "timestamp": "2026-06-27T15:49:50.728871",
+      "applicant_id": "5894946",
+      "prediction": "Denied",
+      "probability": 0.1271,
+      "reason": "High-risk pattern detected; history of delinquent accounts or severe late payments.",
+      "input_data": {
+        "AMT_INCOME_TOTAL": 22100,
+        "NAME_INCOME_TYPE": "Pensioner",
+        "NAME_EDUCATION_TYPE": "Secondary / secondary special"
+      }
+    },
+    {
+      "timestamp": "2026-06-27T15:54:21.534148",
+      "applicant_id": "5008032",
+      "prediction": "Approved",
+      "probability": 0.9885,
+      "reason": "Strong annual income ($450,000.00) satisfies standard banking capital buffers. | Stable career tenure (3.5 years) exhibits solid professional stability. | Acceptable dependency index (1 children, 2 family members).",
+      "input_data": {
+        "AMT_INCOME_TOTAL": 450000.0,
+        "NAME_INCOME_TYPE": "Working",
+        "NAME_EDUCATION_TYPE": "Incomplete higher"
+      }
+    },
+    {
+      "timestamp": "2026-06-27T15:54:41.564804",
+      "applicant_id": "5858209",
+      "prediction": "Approved",
+      "probability": 0.928,
+      "reason": "Strong annual income ($209,000.00) satisfies standard banking capital buffers. | Stable career tenure (11.5 years) exhibits solid professional stability. | Acceptable dependency index (0 children, 1 family members).",
+      "input_data": {
+        "AMT_INCOME_TOTAL": 209000,
+        "NAME_INCOME_TYPE": "State servant",
+        "NAME_EDUCATION_TYPE": "Lower secondary"
+      }
+    },
+    {
+      "timestamp": "2026-07-05T10:00:51.745554",
+      "applicant_id": "421325633",
+      "prediction": "Approved",
+      "probability": 0.9461,
+      "reason": "Strong annual income ($500,000.00) satisfies standard banking capital buffers. | Stable career tenure (2.0 years) exhibits solid professional stability. | Acceptable dependency index (0 children, 4 family members).",
+      "input_data": {
+        "AMT_INCOME_TOTAL": 500000,
+        "NAME_INCOME_TYPE": "Working",
+        "NAME_EDUCATION_TYPE": "Higher education"
+      }
+    },
+    {
+      "timestamp": "2026-07-05T10:01:23.191578",
+      "applicant_id": "5372845",
+      "prediction": "Approved",
+      "probability": 0.9162,
+      "reason": "Strong annual income ($281,000.00) satisfies standard banking capital buffers. | Stable career tenure (13.0 years) exhibits solid professional stability. | Acceptable dependency index (1 children, 3 family members).",
+      "input_data": {
+        "AMT_INCOME_TOTAL": 281000,
+        "NAME_INCOME_TYPE": "Pensioner",
+        "NAME_EDUCATION_TYPE": "Incomplete higher"
+      }
+    }
+  ]
+}

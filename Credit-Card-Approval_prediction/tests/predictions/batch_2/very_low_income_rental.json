@@ -1,0 +1,29 @@
+{
+  "candidate": "Very low income rental",
+  "applicant_id": 20010,
+  "prediction": "Denied",
+  "probability": 0.0005,
+  "reason": "Mixed profile with notable risk signals; review recommended.",
+  "input_data": {
+    "ID": 20010,
+    "CODE_GENDER": "M",
+    "FLAG_OWN_CAR": "N",
+    "FLAG_OWN_REALTY": "N",
+    "CNT_CHILDREN": 4,
+    "AMT_INCOME_TOTAL": 50000,
+    "NAME_INCOME_TYPE": "State servant",
+    "NAME_EDUCATION_TYPE": "Secondary / secondary special",
+    "NAME_FAMILY_STATUS": "Married",
+    "NAME_HOUSING_TYPE": "Rented apartment",
+    "DAYS_BIRTH": -47000,
+    "DAYS_EMPLOYED": -1800,
+    "FLAG_MOBIL": 1,
+    "FLAG_WORK_PHONE": 0,
+    "FLAG_PHONE": 0,
+    "FLAG_EMAIL": 0,
+    "OCCUPATION_TYPE": "Unknown",
+    "CNT_FAM_MEMBERS": 7,
+    "DAYS_REGISTRATION": -800,
+    "DAYS_ID_PUBLISH": -300
+  }
+}
