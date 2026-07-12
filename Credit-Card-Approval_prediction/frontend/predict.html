@@ -412,7 +412,7 @@
                     <tr>
                         <th>Time</th>
                         <th>Applicant ID</th>
-                        <th>Income ($)</th>
+                        <th>Income (₹)</th>
                         <th>Verdict</th>
                         <th>Confidence</th>
                         <th>Reason</th>
@@ -646,7 +646,7 @@
                     const timeStr = new Date(item.timestamp).toLocaleString();
                     const badgeClass = item.prediction === 'Approved' ? 'badge-approved' : 'badge-denied';
                     const formattedVerdict = item.prediction === 'Approved' ? 'Approved' : 'Denied';
-                    const formattedIncome = item.input_data ? `$${item.input_data.AMT_INCOME_TOTAL.toLocaleString()}` : 'N/A';
+                    const formattedIncome = item.input_data ? `₹${item.input_data.AMT_INCOME_TOTAL.toLocaleString()}` : 'N/A';
 
                     row.innerHTML = `
                         <td>${timeStr}</td>
